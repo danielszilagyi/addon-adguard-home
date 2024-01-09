@@ -26,7 +26,7 @@ private_networks+=($(bashio::config 'private_networks'))
 yq --inplace e '.private_networks = []' "${CONFIG}"
   for net in "${private_networks[@]}"; do
     yq --inplace e \
-      '.private_networks += [env(net)]' "${CONFIG}" \
+      '.dns.private_networks += [env(net)]' "${CONFIG}" \
         || bashio::exit.nok 'Failed updating AdGuardHome host'
   done
 
