@@ -22,10 +22,13 @@ port=$(bashio::addon.port "53/udp") \
   yq e --inplace '.dns.port = env(port)' "${CONFIG}" \
     || bashio::exit.nok 'Failed updating AdGuardHome DNS port'
 
-private_networks=$(bashio::config 'private_networks') \
-  yq e --inplace '.private_networks = env(private_networks)' "${CONFIG}" \
-    || bashio::exit.nok 'Failed updating AdguardHome Private nets'
-
+private_networks+=($(bashio::config 'private_networks'))
+yq --inplace e '.private_networks = []' "${CONFIG}"
+  for net in "${private_networks[@]}"; do
+    yq --inplace e \
+      '.private_networks += [env(net)]' "${CONFIG}" \
+        || bashio::exit.nok 'Failed updating AdGuardHome host'
+  done
 
 # Bump schema version in case this is an upgrade path
 schema_version=$(yq e '.schema_version // ""' "${CONFIG}")
