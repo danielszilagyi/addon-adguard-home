@@ -22,6 +22,10 @@ port=$(bashio::addon.port "53/udp") \
   yq e --inplace '.dns.port = env(port)' "${CONFIG}" \
     || bashio::exit.nok 'Failed updating AdGuardHome DNS port'
 
+private_networks=$(bashio::config 'private_networks') \
+  yq e --inplace '.private_networks = env(private_networks)' "${CONFIG}" \
+    || bashio::exit.nok 'Failed updating AdguardHome Private nets'
+
 
 # Bump schema version in case this is an upgrade path
 schema_version=$(yq e '.schema_version // ""' "${CONFIG}")
@@ -38,7 +42,7 @@ if bashio::var.has_value "${schema_version+}"; then
         yq --inplace e '.dns.bind_host = "127.0.0.1"' "${CONFIG}"
         bashio::warning
         bashio::warning "AdGuard Home needs to update its configuration schema"
-        bashio::warning "you might need to restart he add-on once more to complete"
+        bashio::warning "you might need to restart the add-on once more to complete"
         bashio::warning "the upgrade process."
         bashio::warning
         bashio::exit.ok
