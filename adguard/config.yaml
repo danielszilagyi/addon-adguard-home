@@ -1,8 +1,8 @@
 ---
-name: AdGuard Home
+name: AdGuard Home (Beta)
 version: dev
 slug: adguard
-description: Network-wide ads & trackers blocking DNS server
+description: Network-wide ads & trackers blocking DNS server (Beta)
 url: https://github.com/hassio-addons/addon-adguard-home
 codenotary: codenotary@frenck.dev
 ingress: true
