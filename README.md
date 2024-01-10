@@ -27,6 +27,11 @@ Network-wide ads & trackers blocking DNS server.
 
 ## About
 
+This fork runs a *beta* version of AdGuard home and it is possible to
+configure `private_networks` on the addon UI. [This](https://github.com/AdguardTeam/AdGuardHome/wiki/Configuration) is useful when one
+wants to resolve private IP addresses and has IPv6 resolver with public
+IPv6 ranges.
+
 AdGuard Home is a network-wide ad-and-tracker blocking DNS server with
 parental control (adult content blocking) capabilities. Its purpose is to let
 you control your entire network and all your devices, and it does not require
